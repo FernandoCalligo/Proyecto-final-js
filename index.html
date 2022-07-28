@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Pacifico&display=swap" rel="stylesheet">
+    <title>Geoguess</title>
+</head>
+<body>
+    <div class="cardcont" id="trivialcont">
+        <h1 id="preg"></h1>
+        
+        <div class="respcont">
+            <ul>
+                <li>
+                    <input type="radio" id="a" name="respuesta" class="respues">
+                    <label for="a" id="preguntaA">Pregunta</label>
+                </li>
+                <li>
+                    <input type="radio" id="b" name="respuesta" class="respues">
+                    <label for="b" id="preguntaB">Pregunta</label>
+                </li>
+                <li>
+                    <input type="radio" id="c" name="respuesta" class="respues">
+                    <label for="c" id="preguntaC">Pregunta</label>
+                </li>
+                <li>
+                    <input type="radio" id="d" name="respuesta" class="respues">
+                    <label for="d" id="preguntaD">Pregunta</label>
+                </li>
+            </ul>
+        </div>
+        <button id="siguiente">Siguiente</button>
+    </div>
+    <div class="guardarinfo" id ="divform">
+        <form id="formulario">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre">
+            <label for="email">Email:</label>
+            <input type="email" id="email">
+            <button type="submit">Guardar</button>
+        </form>
+        <button id="mostrar">Mostrar</button>
+        <div class="info" id="infousuario">
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/c747ef749e.js" crossorigin="anonymous"></script>
+</body>
+</html>
