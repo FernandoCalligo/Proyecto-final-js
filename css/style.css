@@ -3,13 +3,39 @@
     margin: 0;
     box-sizing: border-box;
     /* font-family: 'Lato', sans-serif; */
-    /* font-family: 'Pacifico', cursive; */
 }
 
-body {
-    background-image: url(../img/New-blog-graphic.jpg);
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+#container {
+    overflow: hidden;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+  }
+
+  #background_video {
+    position: absolute;
+
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+
+    object-fit: cover;
+    height: 100%; width: 100%;
+  }
+
+  #video_cover {
+    position: absolute;
+
+    width: 100%; height: 100%;
+
+    background: url("/img/primerframe.jpg");
     background-size: cover;
-}
+    background-position: center;
+  }
 
 .cardcont {
     position: absolute;
@@ -22,7 +48,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: white;
+    background-color: rgba(000, 000, 000, 0.5);
     width: 35vw;
     height: 70vh;
     border-radius: 1.5rem;
@@ -31,10 +57,10 @@ body {
 
 h1 {
     font-family: 'lato';
-    color: #3784DC;
-    font-size: 28px;
+    color: #fff;
+    font-size: 22px;
     margin-top: 20px;
-    border-bottom: 3px solid #3784DC;
+    border-bottom: 3px solid #fff;
     padding-bottom: 1rem;
     text-transform: uppercase;
     text-align: center;
@@ -46,21 +72,21 @@ ul {
 }
 
 li {
-    font-family: 'Lato', sans-serif;
+    font-family: Helvetica, sans-serif;
     font-size: 24px;
     line-height: 28px;
     margin: 24px 0;
     padding: 14px 24px;
-    color: #3784DC ;
+    color: #fff ;
     list-style: none;
-    border: 2px solid #3784DC;
+    border: 2px solid #fff;
     width: 25vw;
     border-radius: 12px;
 }
 
 button {
-    font-family: 'Lato', sans-serif;
-    background-color: #3784DC;
+    font-family: Helvetica, sans-serif;
+    background-color: #275c99;
     border-radius: 12px;
     color: #fff;
     font-size: 18px;
@@ -69,11 +95,11 @@ button {
     text-align: center;
     border: none;
     cursor: pointer;
-    border: 2px solid #3784DC;
+    border: 2px solid #275c99;
 }
 
 button:hover {
-    color: #3784DC;
+    color: #275c99;
     background-color: #fff;
     transition: 600ms ease;
 }
@@ -81,7 +107,7 @@ button:hover {
 .guardarinfo {
     display: flex;
     flex-direction: column;
-    font-family: 'Lato', sans-serif;
+    font-family: Helvetica, sans-serif;
     font-size: 16px;
     position: absolute;
     top: 0%;
@@ -89,7 +115,7 @@ button:hover {
     bottom: 0%;
     right: 100%;
     margin: auto;
-    background-color: #fff;
+    background-color: rgba(alpha);
     width: 25%;
     display: none;
     transition: 1s ease;
@@ -100,7 +126,7 @@ form {
     flex-direction: column;
     margin: 24px;
     transition: 700ms ease;
-    color: #3784DC;
+    color: #fff;
     font-family: 'lato', sans-serif;
     font-size: 18px;
     font-weight: bold;
@@ -121,15 +147,15 @@ form input {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: 'Lato', sans-serif;
+    font-family: Helvetica, sans-serif;
     font-size: 20px;
     font-weight: bold;
-    color: #3784DC;
+    color: #fff;
     padding-top: 12px;
 }
 
 h2 {
-    color: #3784DC;
+    color: #fff;
     font-size: 24px;
-    font-family: 'lato', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
