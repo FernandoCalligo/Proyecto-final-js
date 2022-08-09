@@ -164,7 +164,7 @@ mostrarbtn.addEventListener("click", () => {
       // of different video formats to add
       src: [
         {
-          src: '/img/video.mp4',
+          src: 'videocompr.mp4',
           type: 'video/mp4'
         }
       ],
