@@ -16,46 +16,29 @@
         <div id="video_cover"></div>
         <div id="overlay"></div>
 
-        <div class="cardcont" id="trivialcont">
-            <h1 id="preg"></h1>
-            
-            <div class="respcont">
-                <ul>
-                    <li>
-                        <input type="radio" id="a" name="respuesta" class="respues">
-                        <label for="a" id="preguntaA">Pregunta</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="b" name="respuesta" class="respues">
-                        <label for="b" id="preguntaB">Pregunta</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="c" name="respuesta" class="respues">
-                        <label for="c" id="preguntaC">Pregunta</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="d" name="respuesta" class="respues">
-                        <label for="d" id="preguntaD">Pregunta</label>
-                    </li>
-                </ul>
-            </div>
-            <button id="siguiente">Siguiente</button>
-        </div>
-        <div class="guardarinfo" id ="divform">
-            <form id="formulario">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre">
-                <label for="email">Email:</label>
-                <input type="email" id="email">
-                <button type="submit">Guardar</button>
-            </form>
-            <button id="mostrar">Mostrar</button>
-            <div class="info" id="infousuario">
-
+        <div class="contflex" id="contquiz">
+            <div id="quiz">
+                <h2 class="titulo" id="pregunta">Pregunta</h2>
+                <div class="respuesta__cont">
+                    <p class="respuesta__letra">A</p>
+                    <p class="respuesta__texto" data-number="1">respuesta1</p>
+                </div>
+                <div class="respuesta__cont">
+                    <p class="respuesta__letra">B</p>
+                    <p class="respuesta__texto" data-number="2">respuesta1</p>
+                </div>
+                <div class="respuesta__cont">
+                    <p class="respuesta__letra">C</p>
+                    <p class="respuesta__texto" data-number="3">respuesta1</p>
+                </div>
+                <div class="respuesta__cont">
+                    <p class="respuesta__letra">D</p>
+                    <p class="respuesta__texto" data-number="4">respuesta1</p>
+                </div>
+                <a class="highscorebtn" href="highscore.html">HishScore</a>
             </div>
         </div>
-    </div>
-
+        
     <script src="bideo.js"></script>
     <script src="script.js"></script>
     <script src="https://kit.fontawesome.com/c747ef749e.js" crossorigin="anonymous"></script>

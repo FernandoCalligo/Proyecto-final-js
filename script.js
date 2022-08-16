@@ -1,142 +1,99 @@
-// Creo la clase preguntas
-class Pregunta {
-    constructor(pregunt, respa, respb,respc, respd, correcta){
-        this.pregunt = pregunt;
-        this.respa = respa;
-        this.respb = respb;
-        this.respc = respc;
-        this.respd = respd;
-        this.correcta = correcta;
+
+const pregunta = document.getElementById("pregunta");
+const elecciones = Array.from(document.getElementsByClassName("respuesta__texto"));
+
+let preguntaActual = [];
+let score = 0;
+let preguntaCounter = 0;
+let preguntasDisponibles = [];
+
+let preguntas = [];
+
+fetch(`https://opentdb.com/api.php?amount=5&category=22&difficulty=easy&type=multiple`)
+.then((res) => {
+    return res.json();
+})
+.then((preguntasCargadas) => {
+    preguntas = preguntasCargadas.results.map((preguntasCargadas) => {
+        const preguntaFormada = {
+            question: preguntasCargadas.question,
+        };
+
+        const opciones = [...preguntasCargadas.incorrect_answers];
+        preguntaFormada.answer = Math.floor(Math.random() * 4) + 1;
+        opciones.splice(
+            preguntaFormada.answer - 1,
+            0,
+            preguntasCargadas.correct_answer
+        );
+
+        opciones.forEach((eleccion, index) => {
+            preguntaFormada['eleccion' + (index + 1)] = eleccion;
+        });
+
+        return preguntaFormada;
+    });
+    startquiz();
+})
+.catch((err) => {
+    console.error(err);
+});
+
+const bonus = 1;
+
+startquiz = () => {
+    preguntaCounter = 0;
+    score = 0;
+    preguntasDisponibles = [...preguntas];
+
+    nuevapregunta ();
+}
+
+nuevapregunta = () => {
+    // Al terminar todas las preguntas se redirecciona
+    if(preguntasDisponibles.length == 0){
+        localStorage.setItem("ScoreReciente", score)
+        return window.location.assign("score.html");
     }
-}
 
-// Creo clase usuario para el local storage
-
-class Usuario {
-    constructor(nombre, email, score) {
-        this.nombre = nombre;
-        this.email = email;
-        this.score = score;
-    }
-}
-
-// funcion para saber cual es la respuesta seleccionada
-
-function seleccionado() {
-
-    let respuesta = undefined;
-
-    respuestasEl.forEach(respuestasEl => {
-        if(respuestasEl.checked) {
-            respuesta = respuestasEl.id;
-        }
-    })
-
-    return respuesta;
-}
-
-// Carga las preguntas y respuestas de la clase en el html
-
-function cargartrivial() {
-
-    respuestasEl.forEach(respuestasEl => {
-        respuestasEl.checked = false;
-    })
-
-    const quizactual = preguntas [actualpreg];
-
-    preg.innerHTML = quizactual.pregunt;
-    preguntaA.innerHTML = quizactual.respa;
-    preguntaB.innerHTML = quizactual.respb;
-    preguntaC.innerHTML = quizactual.respc;
-    preguntaD.innerHTML = quizactual.respd;
-
-}
-
-const pregunta1 = new Pregunta ("Kuala Lumpur es la capita de", "Vietnam", "Malasia", "Suecia", "Austria", "b");
-const pregunta2 = new Pregunta ("De arriba a abajo soy negro, rojo y amarillo quien soy", "Belgica", "Rumania", "Alemania", "Dinamarca", "c");
-const pregunta3 = new Pregunta ("Cual es la capital de Canadá", "Toronto", "Ottawa", "Quebec", "Montreal", "b");
-const pregunta4 = new Pregunta ("Qué país es el más plano de la tierra", "Chad", "Polonia", "China", "Bolivia", "d");
-
-const preguntas = [pregunta1, pregunta2, pregunta3, pregunta4];
-const usuarios = [];
-
-const preg = document.getElementById("preg");
-const preguntaA = document.getElementById("preguntaA");
-const preguntaB = document.getElementById("preguntaB");
-const preguntaC = document.getElementById("preguntaC");
-const preguntaD = document.getElementById("preguntaD");
-
-const respuestasEl = document.querySelectorAll(".respues");
-const trivialcont = document.getElementById("trivialcont");
-const reinciarbtn = document.getElementById("reinciar");
-const siguientebtn = document.getElementById("siguiente");
-
-// form dom
-
-const divform = document.getElementById("divform");
-const mostrarbtn = document.getElementById("mostrar");
-const formid = document.getElementById("formulario");
-const divinfo = document.getElementById("infousuario");
-
-// Cargo las preguntas al index
-
-let actualpreg = 0;
-let resultado = 0;
-
-cargartrivial();
-
-siguientebtn.addEventListener("click", () => {
+    preguntaCounter ++;
     
-    const respuesta = seleccionado();
+    // Genera un pregunta random, se multiplica por la cantidad de preguntas para que me de un numero entre el 1 y el numero maximo de preguntas
+    const indexpregunta = Math.floor(Math.random() * preguntasDisponibles.length);
+    preguntaActual = preguntasDisponibles[indexpregunta]
+    pregunta.innerText = preguntaActual.question;
 
-    console.log(respuesta);
+    elecciones.forEach((eleccion) => {
+        const number = eleccion.dataset['number'];
+        eleccion.innerHTML = preguntaActual['eleccion' + number];
+    });
 
-    if (respuesta) {
-        if (respuesta === preguntas [actualpreg].correcta) {
-            resultado ++;
+    preguntasDisponibles.splice(indexpregunta, 1);
+};
+
+// Reviso cual es la opcion seleccionada por el usuario
+
+elecciones.forEach((eleccion) => {
+    eleccion.addEventListener('click', (e) => {
+
+        const elecciónSeleccionada = e.target;
+        const respuestaSeleccionada = elecciónSeleccionada.dataset['number'];
+
+        const clase =
+            respuestaSeleccionada == preguntaActual.answer ? 'correcta' : 'incorrecta';
+
+        if (clase === 'correcta') {
+            score += bonus
         }
 
-        actualpreg ++;
-        if (actualpreg < preguntas.length) {
-            cargartrivial();
-        } else {
-            trivialcont.innerHTML = `<h1>Quiz Terminado </h1> <br>
-            <h2>Respondiste bien ${resultado}/${preguntas.length}</h2> <br> `
-            divform.style.display = "block";
-        }
-    }
-})
+        elecciónSeleccionada.classList.add(clase);
 
-//form para guardar los datos del usuario con sus resultados
-
-formid.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const nombre = document.getElementById("nombre").value;
-    const email = document.getElementById("email").value;
-
-    const usuario = new Usuario (nombre, email, resultado);
-
-    usuarios.push(usuario);
-
-    localStorage.setItem("Usuario", JSON.stringify(usuarios));
-
-    formid.reset();
-})
-
-mostrarbtn.addEventListener("click", () => {
-    const usuarios = JSON.parse(localStorage.getItem("Usuario"));
-
-    let aux = ``
-    usuarios.forEach(usuario => {
-        aux += `<p> Nombre: ${usuario.nombre} </p> <br>
-        <p> Score: ${resultado} </p> <br>       ` 
-    })
-
-    divinfo.innerHTML = aux;
-})
-
+        setTimeout(() => {
+            elecciónSeleccionada.classList.remove(clase);
+            nuevapregunta();
+        }, 1000);
+    });
+});
 
 // Libreria Bideo.js
 
